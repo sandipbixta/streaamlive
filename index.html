@@ -3,215 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamFreeLive - Football Highlights</title>
+    <meta name="description" content="Watch free football highlights and live sports streams">
+    <title>StreamFreeLive - Sports Streaming App</title>
     <style>
-        /* Default styles for larger screens */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #222;
-            color: #ff4500;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        nav {
-            background-color: #333;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-        }
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
-        }
-        .search-bar {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .search-bar input {
-            padding: 10px;
-            width: 50%;
-            border-radius: 5px;
-            border: none;
-        }
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .category {
-            background-color: #ff4500;
-            color: #ffffff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .match-card {
-            background-color: #222;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        .footer {
-            background-color: #222;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
+        :root {
+            --primary: #FF6B35;
+            --secondary: #00A8E8;
+            --accent: #FFD400;
+            --dark: #1A1A1A;
+            --light: #F4F4F4;
         }
 
-        /* Modal styles */
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(145deg, var(--dark) 0%, #2A2A2A 100%);
+            color: var(--light);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            margin: 0;
+            text-align: center;
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        nav {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.1);
+        }
+
+        nav a:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-bar {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.1);
+            color: var(--light);
+            font-size: 1.1rem;
+            padding-left: 3rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px var(--primary);
+            background: rgba(255,255,255,0.15);
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .category {
+            background: linear-gradient(45deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,168,232,0.2);
+        }
+
+        .category:hover {
+            transform: translateY(-3px);
+        }
+
+        .match-card {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .match-card:hover {
+            transform: translateX(10px);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .match-card h3 {
+            margin: 0 0 1rem 0;
+            color: var(--accent);
+        }
+
+        .match-card a {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .match-card a:hover {
+            background: var(--secondary);
+            box-shadow: 0 4px 15px rgba(0,168,232,0.3);
+        }
+
+        .footer {
+            background: rgba(0,0,0,0.3);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Animated Modal */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding-top: 60px;
-            text-align: center;
-        }
-        .modal-content {
-            background-color: #222;
-            margin: 5% auto;
-            padding: 20px;
-            width: 80%;
-            max-width: 800px;
-        }
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            position: absolute;
-            top: 10px;
-            right: 25px;
-        }
-        .close:hover,
-        .close:focus {
-            color: #ff4500;
-            text-decoration: none;
-            cursor: pointer;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            animation: modalFade 0.3s ease;
         }
 
-        /* Mobile-friendly styles */
-        @media only screen and (max-width: 600px) {
-            header {
-                font-size: 20px;
-                padding: 10px 0;
-            }
-            nav {
-                padding: 5px;
-            }
-            nav a {
-                margin: 0 10px;
-                font-size: 16px;
-            }
-            .container {
-                width: 95%;
-                padding: 10px;
-            }
-            .search-bar input {
-                width: 80%;
-                padding: 8px;
-            }
-            .categories {
+        @keyframes modalFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(145deg, var(--dark) 0%, #2A2A2A 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+            border: 2px solid var(--primary);
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
                 flex-direction: column;
-                align-items: center;
+                gap: 1rem;
+                text-align: center;
             }
-            .category {
-                margin: 5px 0;
-            }
+            
             .match-card {
-                font-size: 16px;
-                padding: 10px;
+                padding: 1rem;
+                margin: 0.5rem 0;
             }
-            .footer {
-                font-size: 14px;
-                padding: 5px 0;
+            
+            .categories {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <header>StreamFreeLive - Watch Sports Live for Free</header>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#highlights">Live</a>
-        <a href="#football">Football</a>
-        <a href="#categories">Basketball</a>
-        <a href="#categories">Cricket</a>
-    </nav>
-    <div class="container">
-        <div class="search-bar">
-            <input type="text" placeholder="Search matches...">
-        </div>
-        <section id="highlights">
-            <h2>Live Now</h2>
-            <div class="match-card">
-                ⚽ Premier League: Manchester United vs Chelsea  
-                <a href="https://tv247365.link/2y_1" target="_blank">Watch Now</a>
-            </div>
-            <div class="match-card">
-                ⚽ Chelsea vs West Ham  
-                <a href="javascript:void(0);" id="watchChelseaWestHam">Watch Now</a>
-            </div>
-        </section>
-        <section id="upcoming">
-            <h2>Upcoming Matches</h2>
-            <div class="match-card">⚽ La Liga: Barcelona vs Real Madrid - Coming Soon</div>
-            <div class="match-card">🏀 EuroLeague: CSKA Moscow vs Olympiacos - Coming Soon</div>
-        </section>
-    </div>
-    <div class="footer">&copy; 2025 StreamFreeLive. All rights reserved.</div>
+    <header>
+        <h1>⚽ StreamFreeLive</h1>
+    </header>
 
-    <!-- Modal -->
-    <div id="chelseaWestHamModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Chelsea vs West Ham</h2>
-            <iframe src="https://hofoo22.fooroomtyv.com/embed/XWorsmTYmeAhc" width="100%" height="400" allowfullscreen></iframe>
+    <nav>
+        <ul>
+            <li><a href="#home">🏠 Home</a></li>
+            <li><a href="#live">🔴 Live</a></li>
+            <li><a href="#football">⚽ Football</a></li>
+            <li><a href="#basketball">🏀 Basketball</a></li>
+            <li><a href="#cricket">🏏 Cricket</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <form class="search-bar" role="search">
+            <input type="search" placeholder="🔍 Search matches...">
+        </form>
+
+        <section class="categories">
+            <a href="#premier-league" class="category">Premier League</a>
+            <a href="#laliga" class="category">La Liga</a>
+            <a href="#champions" class="category">Champions League</a>
+            <a href="#nba" class="category">NBA</a>
+        </section>
+
+        <section id="live">
+            <h2>🔥 Live Now</h2>
+            <article class="match-card">
+                <h3>⚽ Manchester United vs Chelsea</h3>
+                <p>Premier League - 75' Playing Now</p>
+                <a href="https://tv247365.link/2y_1" target="_blank" rel="noopener">
+                    Watch Now ▶
+                </a>
+            </article>
+            <!-- Add more match cards -->
+        </section>
+
+        <!-- Modal -->
+        <div id="chelseaWestHamModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Chelsea vs West Ham</h2>
+                <iframe 
+                    src="https://hofoo22.fooroomtyv.com/embed/XWorsmTYmeAhc" 
+                    title="Live Stream"
+                    allowfullscreen
+                ></iframe>
+            </div>
         </div>
-    </div>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025 StreamFreeLive. Score updates powered by SportsAPI</p>
+    </footer>
 
     <script>
-        // Modal functionality
-        var modal = document.getElementById("chelseaWestHamModal");
-        var btn = document.getElementById("watchChelseaWestHam");
-        var span = document.getElementById("closeModal");
+        const modal = document.querySelector(".modal");
+        const closeBtn = document.querySelector(".close");
 
-        // When the user clicks the "Watch Now" button, open the modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
+        document.querySelectorAll("[data-modal]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                modal.style.display = "flex";
+                document.body.style.overflow = "hidden";
+            });
+        });
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+        closeBtn.addEventListener("click", () => {
             modal.style.display = "none";
-        }
+            document.body.style.overflow = "auto";
+        });
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
                 modal.style.display = "none";
+                document.body.style.overflow = "auto";
             }
-        }
+        });
+
+        // Add smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>
