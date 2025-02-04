@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreamFreeLive - Football Highlights</title>
     <style>
-        /* Default styles for larger screens (like desktops) */
         body {
             font-family: Arial, sans-serif;
             background-color: #111;
@@ -38,39 +37,23 @@
             margin: auto;
             padding: 20px;
         }
-        .search-bar {
-            text-align: center;
-            margin: 20px 0;
-        }
-        .search-bar input {
-            padding: 10px;
-            width: 50%;
-            border-radius: 5px;
-            border: none;
-        }
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-        .category {
-            background-color: #ff4500;
-            color: #ffffff;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
         .match-card {
             background-color: #222;
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .match-card iframe {
-            width: 100%;
-            height: 400px;
+        .watch-btn {
+            background-color: #ff4500;
+            color: white;
+            padding: 10px 15px;
             border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
         }
         .footer {
             background-color: #222;
@@ -78,44 +61,6 @@
             text-align: center;
             padding: 10px 0;
             margin-top: 20px;
-        }
-
-        /* Mobile-friendly styles */
-        @media only screen and (max-width: 600px) {
-            header {
-                font-size: 20px;
-                padding: 10px 0;
-            }
-            nav {
-                padding: 5px;
-            }
-            nav a {
-                margin: 0 10px;
-                font-size: 16px;
-            }
-            .container {
-                width: 95%;
-                padding: 10px;
-            }
-            .search-bar input {
-                width: 80%;
-                padding: 8px;
-            }
-            .categories {
-                flex-direction: column;
-                align-items: center;
-            }
-            .category {
-                margin: 5px 0;
-            }
-            .match-card {
-                font-size: 16px;
-                padding: 10px;
-            }
-            .footer {
-                font-size: 14px;
-                padding: 5px 0;
-            }
         }
     </style>
 </head>
@@ -129,42 +74,20 @@
         <a href="#categories">Cricket</a>
     </nav>
     <div class="container">
-        <div class="search-bar">
-            <input type="text" placeholder="Search matches...">
-        </div>
-        <section id="categories">
-            <h2>Sports Categories</h2>
-            <div class="categories">
-                <a href="#football" class="category">Football</a>
-                <a href="#basketball" class="category">Basketball</a>
-                <a href="#cricket" class="category">Cricket</a>
-            </div>
-        </section>
-        <section id="football">
-            <h2>European Football League Teams</h2>
-            <div class="team-list">
-                <ul>
-                    <li>🏆 <a href="#" target="_blank">Premier League</a></li>
-                    <li>🇪🇸 <a href="#" target="_blank">La Liga</a></li>
-                    <li>🇮🇹 <a href="#" target="_blank">Serie A:</a></li>
-                    <li>🇩🇪 <a href="#" target="_blank">Bundesliga: </a></li>
-                    <li>🇫🇷 <a href="#" target="_blank">Ligue 1:</a></li>
-                </ul>
-            </div>
-        </section>
         <section id="highlights">
             <h2>Live Now</h2>
             <div class="match-card">
                 ⚽ Premier League: Manchester United vs Chelsea
-                <iframe src="https://www.youtube.com/embed/h6n1fzcc6-Q" allowfullscreen></iframe>
+                <a href="watch.html?match=premierleague" class="watch-btn">Watch Now</a>
             </div>
-            <div class="match-card">🏀 NBA Finals: Lakers vs Celtics - <span style="color:#ff4500;">Watch Now</span></div>
-            <div class="match-card">🏏 ICC World Cup: India vs Australia - <span style="color:#ff4500;">Watch Now</span></div>
-        </section>
-        <section id="upcoming">
-            <h2>Upcoming Matches</h2>
-            <div class="match-card">⚽ La Liga: Barcelona vs Real Madrid - Coming Soon</div>
-            <div class="match-card">🏀 EuroLeague: CSKA Moscow vs Olympiacos - Coming Soon</div>
+            <div class="match-card">
+                🏀 NBA Finals: Lakers vs Celtics
+                <a href="watch.html?match=nba" class="watch-btn">Watch Now</a>
+            </div>
+            <div class="match-card">
+                🏏 ICC World Cup: India vs Australia
+                <a href="watch.html?match=cricket" class="watch-btn">Watch Now</a>
+            </div>
         </section>
     </div>
     <div class="footer">&copy; 2025 StreamFreeLive. All rights reserved.</div>
