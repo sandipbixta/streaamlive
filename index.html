@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StreamFreeLive - Football Highlights</title>
     <style>
+        /* Default styles for larger screens */
         body {
             font-family: Arial, sans-serif;
             background-color: #111;
@@ -37,23 +38,34 @@
             margin: auto;
             padding: 20px;
         }
+        .search-bar {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 50%;
+            border-radius: 5px;
+            border: none;
+        }
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .category {
+            background-color: #ff4500;
+            color: #ffffff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
         .match-card {
             background-color: #222;
             padding: 15px;
             margin: 10px 0;
             border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .watch-btn {
-            background-color: #ff4500;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 16px;
         }
         .footer {
             background-color: #222;
@@ -61,6 +73,79 @@
             text-align: center;
             padding: 10px 0;
             margin-top: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding-top: 60px;
+            text-align: center;
+        }
+        .modal-content {
+            background-color: #222;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+        }
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 25px;
+        }
+        .close:hover,
+        .close:focus {
+            color: #ff4500;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Mobile-friendly styles */
+        @media only screen and (max-width: 600px) {
+            header {
+                font-size: 20px;
+                padding: 10px 0;
+            }
+            nav {
+                padding: 5px;
+            }
+            nav a {
+                margin: 0 10px;
+                font-size: 16px;
+            }
+            .container {
+                width: 95%;
+                padding: 10px;
+            }
+            .search-bar input {
+                width: 80%;
+                padding: 8px;
+            }
+            .categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            .category {
+                margin: 5px 0;
+            }
+            .match-card {
+                font-size: 16px;
+                padding: 10px;
+            }
+            .footer {
+                font-size: 14px;
+                padding: 5px 0;
+            }
         }
     </style>
 </head>
@@ -74,38 +159,59 @@
         <a href="#categories">Cricket</a>
     </nav>
     <div class="container">
-        <section id="highlights">
-    <h2>Live Now</h2>
-    <div class="match-card">
-        ⚽ Premier League: Manchester United vs Chelsea  
-        <iframe src="https://hoofoot.com/video123" width="100%" height="400" allowfullscreen></iframe>
-    </div>
-    <div class="match-card">
-        ⚽ Chelsea vs West Ham  
-        <iframe src="https://hofoo22.fooroomtyv.com/embed/XWorsmTYmeAhc" width="100%" height="400" allowfullscreen></iframe>
-    </div
-
+        <div class="search-bar">
+            <input type="text" placeholder="Search matches...">
+        </div>
         <section id="highlights">
             <h2>Live Now</h2>
             <div class="match-card">
-                ⚽ Premier League: Manchester United vs Chelsea
-                <a href="https://tv247365.link/2y_1" class="watch-btn" target="_blank">Watch Here</a>
-            </div>
-            <div class="match-card'>
-                la liga: Real Madrid vs FC Barcelona
-                <a href="watch.html?match=football" class="watch-btn">Watch Now</a>
+                ⚽ Premier League: Manchester United vs Chelsea  
+                <a href="https://tv247365.link/2y_1" target="_blank">Watch Now</a>
             </div>
             <div class="match-card">
-                🏀 NBA Finals: Lakers vs Celtics
-                <a href="watch.html?match=nba" class="watch-btn">Watch Now</a>
+                ⚽ Chelsea vs West Ham  
+                <a href="javascript:void(0);" id="watchChelseaWestHam">Watch Now</a>
             </div>
-        
-            <div class="match-card">
-                🏏 ICC World Cup: India vs Australia
-                <a href="watch.html?match=cricket" class="watch-btn">Watch Now</a>
-            </div>
+        </section>
+        <section id="upcoming">
+            <h2>Upcoming Matches</h2>
+            <div class="match-card">⚽ La Liga: Barcelona vs Real Madrid - Coming Soon</div>
+            <div class="match-card">🏀 EuroLeague: CSKA Moscow vs Olympiacos - Coming Soon</div>
         </section>
     </div>
     <div class="footer">&copy; 2025 StreamFreeLive. All rights reserved.</div>
+
+    <!-- Modal -->
+    <div id="chelseaWestHamModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Chelsea vs West Ham</h2>
+            <iframe src="https://hofoo22.fooroomtyv.com/embed/XWorsmTYmeAhc" width="100%" height="400" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        var modal = document.getElementById("chelseaWestHamModal");
+        var btn = document.getElementById("watchChelseaWestHam");
+        var span = document.getElementById("closeModal");
+
+        // When the user clicks the "Watch Now" button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
