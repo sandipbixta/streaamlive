@@ -37,7 +37,7 @@
             margin: auto;
             padding: 20px;
         }
-        .match-card {
+        .match-card, .video-player {
             background-color: #222;
             padding: 15px;
             margin: 10px 0;
@@ -49,16 +49,21 @@
             padding: 15px;
             border-radius: 5px;
         }
+        video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <header>StreamFreeLive - Watch Sports Live for Free</header>
     <nav>
         <a href="#home">Home</a>
-        <a href="#highlights">Live</a>
+        <a href="#live">Live</a>
         <a href="#football">Football</a>
-        <a href="#categories">Basketball</a>
-        <a href="#categories">Cricket</a>
+        <a href="#basketball">Basketball</a>
+        <a href="#cricket">Cricket</a>
     </nav>
 
     <div class="container">
@@ -66,12 +71,22 @@
             <h2>Live Football Scores</h2>
             <div id="scores" class="live-scores">Loading live scores...</div>
         </section>
+
+        <section id="live-stream">
+            <h2>Live Sports Stream</h2>
+            <div class="video-player">
+                <video controls>
+                    <source src="https://bit.ly/ddy-m3u1all" type="application/x-mpegURL">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
     </div>
 
     <script>
         async function fetchLiveScores() {
-            const apiKey = "859a2dfa510214549db2fee65f5d4306";  // Your API Key
-            const url = `https://api.football-data.org/v2/matches?status=LIVE`;  // Adjust based on API provider
+            const apiKey = "859a2dfa510214549db2fee65f5d4306";  
+            const url = `https://api.football-data.org/v2/matches?status=LIVE`;
 
             try {
                 const response = await fetch(url, {
@@ -84,8 +99,8 @@
 
                 const data = await response.json();
                 const matches = data.matches;
-
                 let scoresHTML = "";
+
                 if (matches.length > 0) {
                     matches.forEach(match => {
                         scoresHTML += `
@@ -107,7 +122,7 @@
         }
 
         fetchLiveScores();
-        setInterval(fetchLiveScores, 30000);  // Refresh every 30 seconds
+        setInterval(fetchLiveScores, 30000);
     </script>
 </body>
 </html>
