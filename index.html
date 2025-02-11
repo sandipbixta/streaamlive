@@ -1,128 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StreamFreeLive - Football Highlights</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #111;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #222;
-            color: #ff4500;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-        nav {
-            background-color: #333;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 18px;
-        }
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
-        }
-        .match-card, .video-player {
-            background-color: #222;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .live-scores {
-            background-color: #222;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        video {
-            width: 100%;
-            max-width: 800px;
-            border-radius: 5px;
-        }
-    </style>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title>Coming Soon ...</title>
+	<link rel="shortcut icon" type="image/png" href="favicon-32x32.png"/>
+	<link rel="stylesheet" type="text/css" href="main-style.css">
+	<link rel="stylesheet" type="text/css" href="widgetLiveScore.css">
+	<script src="jquery.js"></script>
+	<script src="jqueryGlobals.js"></script>
+    <script src="jquery.widgetLiveScore.js" type="text/javascript"></script>
 </head>
 <body>
-    <header>StreamFreeLive - Watch Sports Live for Free</header>
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#live">Live</a>
-        <a href="#football">Football</a>
-        <a href="#basketball">Basketball</a>
-        <a href="#cricket">Cricket</a>
-    </nav>
-
-    <div class="container">
-        <section id="live-scores">
-            <h2>Live Football Scores</h2>
-            <div id="scores" class="live-scores">Loading live scores...</div>
-        </section>
-
-        <section id="live-stream">
-            <h2>Live Sports Stream</h2>
-            <div class="video-player">
-                <video controls>
-                    <source src="https://bit.ly/ddy-m3u1all" type="application/x-mpegURL">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </section>
-    </div>
-
-    <script>
-        async function fetchLiveScores() {
-            const apiKey = "859a2dfa510214549db2fee65f5d4306";  
-            const url = `https://api.football-data.org/v2/matches?status=LIVE`;
-
-            try {
-                const response = await fetch(url, {
-                    headers: { "X-Auth-Token": apiKey }
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch live scores");
-                }
-
-                const data = await response.json();
-                const matches = data.matches;
-                let scoresHTML = "";
-
-                if (matches.length > 0) {
-                    matches.forEach(match => {
-                        scoresHTML += `
-                            <div class="match-card">
-                                <strong>${match.competition.name}</strong><br>
-                                ⚽ ${match.homeTeam.name} ${match.score.fullTime.homeTeam || 0} - ${match.score.fullTime.awayTeam || 0} ${match.awayTeam.name}
-                            </div>
-                        `;
-                    });
-                } else {
-                    scoresHTML = "<div class='match-card'>No live matches currently.</div>";
-                }
-
-                document.getElementById("scores").innerHTML = scoresHTML;
-
-            } catch (error) {
-                document.getElementById("scores").innerHTML = `<div class='match-card'>Error fetching scores</div>`;
-            }
-        }
-
-        fetchLiveScores();
-        setInterval(fetchLiveScores, 30000);
-    </script>
+<div class="container container-with-errors">
+	<section id="widgetLiveScore"></section>
+</div>
 </body>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	    $('#widgetLiveScore').widgetLiveScore({
+	    	widgetWidth: '100%'
+	    });
+	});
+
+</script>
 </html>
